@@ -22,8 +22,13 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public void saveElement(Object element) {
-
+    public Optional<Usuario> saveElement(Usuario usuario) {
+        try {
+            Usuario savedUsuario = usuarioRepository.save(usuario);
+            return Optional.of(savedUsuario);
+        } catch (Exception e) {
+            throw new CustomExceptions("Error almacenando el Usuario: " + e.getMessage());
+        }
     }
 
     @Override
