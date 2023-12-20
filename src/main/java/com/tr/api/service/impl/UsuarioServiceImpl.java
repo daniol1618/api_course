@@ -4,6 +4,7 @@ import com.tr.api.exceptions.CustomExceptions;
 import com.tr.api.model.Usuario;
 import com.tr.api.repository.IUsuarioRepository;
 import com.tr.api.service.IServices;
+import com.tr.api.service.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UsuarioServiceImpl implements IServices<Usuario> {
+public class UsuarioServiceImpl implements IUsuarioService {
 
     private final IUsuarioRepository usuarioRepository;
 
