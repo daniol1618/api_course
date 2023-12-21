@@ -10,6 +10,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -22,7 +23,30 @@ public class IUsuarioRepositoryTest {
     private IUsuarioRepository underTest;
 
     @Test
-    public void createSampleUsuarios() {
+    void whenSaveUsuario_ThenReturnSameUsuario() {
+        //Arrange
+        Usuario usuario = Usuario.builder()
+                .nombre("Patricio")
+                .email("patricio_estrella@gmail.com")
+                .ciudad(Ciudad.BOGOTA)
+                .build();
+
+        //Act
+        Usuario usuarioRetornado = underTest.save(usuario);
+
+        //Assert
+        assertThat(usuarioRetornado).isNotNull();
+        assertThat(usuarioRetornado.getIdUsuario()).isNotNull(); // Assuming idUsuario is set after save
+        assertThat(usuario.getNombre()).isEqualTo(usuarioRetornado.getNombre());
+        assertThat(usuario.getEmail()).isEqualTo(usuarioRetornado.getEmail());
+        assertThat(usuario.getCiudad()).isEqualTo(usuarioRetornado.getCiudad());
+
+        Optional<Usuario> usuarioRetornadoOptional = Optional.of(underTest.save(usuario));
+        assertThat(usuarioRetornadoOptional).isPresent();
+    }
+
+    @Test
+    public void saveUsuarios_returnsUsuarios() {
         List<Usuario> usuarios = Arrays.asList(
                 new Usuario(null, "Martha Doe", "martha@example.com", Ciudad.BOGOTA),
                 new Usuario(null, "Jane Castro", "jane@example.com", Ciudad.CARACAS),
